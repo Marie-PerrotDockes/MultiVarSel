@@ -40,7 +40,7 @@ variable_selection <- function(X, group = NULL, Y, nb_replis = 1000,
     residuals <- lm(as.matrix(Y[sample != i, ]) ~ X[sample != i, ] - 1)$residuals
     square_root_inv_hat_Sigma <- whitening(residuals, typeDep, pAR = pAR, qMA = qMA)
     Yr <- as.numeric(Y[sample != i, ] %*% square_root_inv_hat_Sigma)
-    Xr <- kronecker(t(square_root_inv_hat_Sigma), X[sample != i, ])
+    Xr <- kronecker(Matrix::t(square_root_inv_hat_Sigma), X[sample != i, ])
     Lmin <- cv.glmnet(Xr, Yr, intercept = F)$lambda.min
     ni <- sum(sample != i)
     Res <- mclapply(1:nb_repli, function(lala){
@@ -55,7 +55,7 @@ variable_selection <- function(X, group = NULL, Y, nb_replis = 1000,
       resultat_glmnet <- glmnet(Xr[sel, ], Yr[sel], family = "gaussian",
                                 alpha = 1, lambda = Lmin, intercept = F)
 
-      ind_glmnet  <- which(resultat_glmnet$beta != 0)
+      ind_glmnet  <- which(as.logical(resultat_glmnet$beta != 0))
       return(tabulate(ind_glmnet, (p * q)))
     },
     mc.cores = nb.cores)
