@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1523004242280.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "C3AE579D",
+    "lastKnownWriteTime" : 1523007175,
+    "last_content_update" : 1523007175438,
+    "path" : "~/Documents/Multivar_selec/Multivar_selec/MultiVarSel/R/whitening_choice.R",
+    "project_path" : "R/whitening_choice.R",
+    "properties" : {
+        "cursorPosition" : "16,3",
+        "scrollLine" : "0"
+    },
+    "relative_order" : 7,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1523282626469.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2710110499",
+    "id" : "B0BD2414",
+    "lastKnownWriteTime" : 1523285190,
+    "last_content_update" : 1523285190747,
+    "path" : "~/Documents/Multivar_selec/Multivar_selec/MultiVarSel/Vignettes/Vignettes.Rmd",
+    "project_path" : "Vignettes/Vignettes.Rmd",
+    "properties" : {
+        "cursorPosition" : "36,6",
+        "last_setup_crc32" : "D8CD165Abb338d19",
+        "scrollLine" : "23"
+    },
+    "relative_order" : 13,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

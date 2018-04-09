@@ -1,0 +1,8 @@
+"0","s  <- round(sparsity*p*q) "
+"0","ij <- arrayInd(sample(1:(p*q), size = s), c(p,q))"
+"0","B <- sparseMatrix(i = ij[, 1], j = ij[, 2],"
+"0","                   x = runif(s) * sample(c(-1,1),s,rep=T),"
+"0","                   dims = c(p,q))"
+"0","X <- matrix(rnorm(n*p),n,p)"
+"0","   "
+"0","Y <- X %*% B  + E"

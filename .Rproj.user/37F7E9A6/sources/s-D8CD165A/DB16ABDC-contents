@@ -1,0 +1,29 @@
+whitening_test_data <- function (residus_whitened,p=10)
+{
+  n=dim(residus_whitened)[1]
+  q=dim(residus_whitened)[2]
+  pvalue=c()
+  ## Portmanteau test on each row of the residus
+  for (k in 1:n)
+  {
+    acf_vect=acf(as.vector(residus_whitened[k,]),type="correlation",plot=FALSE,lag.max=floor(sqrt(q)))$acf
+    stat_test_portmanteau=q*sum(acf_vect[2:length(acf_vect)]^2)
+    pvalue[k]=pchisq(stat_test_portmanteau,df=length(acf_vect),lower.tail=FALSE)
+  }
+  return(min(1,n*min(pvalue)))    ## Bonferroni correction
+}
+
+whitening_test_data_sum <- function (residus_whitened,p=10)
+{
+  n=dim(residus_whitened)[1]
+  q=dim(residus_whitened)[2]
+  ## Portmanteau test on each row of the residus
+recup_stat<-function(k){
+    acf_vect=acf(as.vector(residus_whitened[k,]),type="correlation",plot=FALSE,lag.max=floor(sqrt(q)))$acf
+    return(q*sum(acf_vect[2:length(acf_vect)]^2))
+    }
+Stat<-sapply(1:n,recup_stat)
+pvalue=pchisq(sum(Stat),df=((floor(sqrt(q))+1)*n),lower.tail=FALSE)
+
+  return(pvalue)    ## Bonferroni correctio
+}

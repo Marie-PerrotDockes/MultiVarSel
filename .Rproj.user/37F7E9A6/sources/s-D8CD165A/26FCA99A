@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1523007342601.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "26FCA99A",
+    "lastKnownWriteTime" : 1523285139,
+    "last_content_update" : 1523285139298,
+    "path" : "~/Documents/Multivar_selec/Multivar_selec/MultiVarSel/R/variable_selection.R",
+    "project_path" : "R/variable_selection.R",
+    "properties" : {
+        "cursorPosition" : "42,0",
+        "scrollLine" : "29"
+    },
+    "relative_order" : 10,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

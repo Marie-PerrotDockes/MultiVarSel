@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1523266902012.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "496|1|593|0|\n",
+    "hash" : "0",
+    "id" : "604CBCC0",
+    "lastKnownWriteTime" : 1523276505,
+    "last_content_update" : 1523276506005,
+    "path" : "~/Documents/Enviromics/SAGMB/figures_revision/Plots_R1.R",
+    "project_path" : null,
+    "properties" : {
+        "cursorPosition" : "607,0",
+        "scrollLine" : "483"
+    },
+    "relative_order" : 11,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

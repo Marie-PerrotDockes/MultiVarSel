@@ -1,0 +1,2 @@
+"0","result <- whitening_choice(residual, c(""AR1""), pAR = 1, qMA = 1)"
+"0","result"

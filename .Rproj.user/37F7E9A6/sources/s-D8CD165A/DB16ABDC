@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1523279662345.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3810048950",
+    "id" : "DB16ABDC",
+    "lastKnownWriteTime" : 1489658490,
+    "last_content_update" : 1489658490,
+    "path" : "/run/user/1002/gvfs/smb-share:server=bianca,share=mmip/perrotdockes/enviromics/whitening_test_data.R",
+    "project_path" : null,
+    "properties" : {
+    },
+    "relative_order" : 13,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

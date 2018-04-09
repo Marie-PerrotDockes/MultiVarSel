@@ -1,0 +1,41 @@
+raw_data <- read.table(file = '/home/perrot-dockes/Documents/Enviromics/Code/paper_metabolomics/data_copals.csv',sep=',', header=TRUE)
+dim(raw_data)
+head(raw_data)
+colnames(raw_data[,1:10])
+camera  <- read.table(file = '/home/perrot-dockes/Documents/Enviromics/Code/paper_metabolomics/data_copals_camera.csv',sep=';', header=TRUE)
+dim(camera)
+par(mfrow=c(3,1))
+acf(as.numeric(raw_data[1,-c(1:4)]),lag.max =30)
+acf(as.numeric(camera[1,-c(1:4)]),lag.max =30)
+acf(as.numeric(scale(camera[,-c(1:4)])[1,]),lag.max =30)
+
+raw_data$Include
+
+
+
+Data <- rbind.data.frame(cbind.data.frame(Value = as.numeric(raw_data[2,-c(1:4)]),
+                                          m = as.numeric(gsub('X','',colnames(raw_data[,-c(1:4)]))), 
+                                          Type='Raw',stringsAsFactors=FALSE ),
+                         cbind.data.frame(Value = as.numeric(camera[2,-c(1:4)]),
+                                          m = as.numeric(gsub('X','',colnames(camera[,-c(1:4)]))), 
+                                          Type='Camera' ,stringsAsFactors=FALSE),
+                         cbind.data.frame(Value = as.numeric(scale(camera[,-c(1:4)])[2,]),
+                                          m = as.numeric(gsub('X','',colnames(camera[,-c(1:4)]))), 
+                                          Type='Scale Camera' ,stringsAsFactors=FALSE))
+
+Data$Type <- factor(Data$Type, levels= c('Raw', 'Camera', 'Scale Camera'))
+
+p <- ggplot(data = Data, aes(x = m, y = Value))+ geom_line()+ theme_bw()+ facet_grid(Type~., scales='free_y')
+p <- p + theme(strip.background = element_rect(fill='white'))
+dim(Data)
+plot(y= as.numeric(raw_data[2,-c(1:4)]),  x= as.numeric(gsub('X','',colnames(raw_data[,-c(1:4)]))), type='l', main = 'Raw data', xlab = 'm/z', ylab='')
+plot(y= as.numeric(camera[2,-c(1:4)]),  x= as.numeric(gsub('X','',colnames(camera[,-c(1:4)]))), type='l',  main = 'Data camera', xlab = 'm/z', ylab='')
+plot(y= as.numeric(scale(camera[,-c(1:4)])[2,]),  x= as.numeric(gsub('X','',colnames(camera[,-c(1:4)]))), type='l', main='Centered and scale data camera', xlab = 'm/z', ylab='')
+
+
+
+plot(ts(as.numeric(raw_data[1,-c(1:4)])))
+spectrum(ts(data = as.numeric(raw_data[1,-c(1:4)]), x = as.numeric(gsub('X','',colnames(raw_data[,-c(1:4)]))))
+)         
+
+plot(ts(as.numeric(raw_data[1,-c(1:4)])))

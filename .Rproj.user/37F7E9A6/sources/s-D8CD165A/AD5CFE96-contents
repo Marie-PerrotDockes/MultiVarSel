@@ -1,0 +1,35 @@
+library(huge)
+
+Whitening_data <- function(residus,typeDep,pAR=1,qMA=0)
+{
+  n=dim(residus)[1]
+  q=dim(residus)[2]
+  
+  ## Whitening with the AR1 method
+  if (typeDep=="AR1")
+  {
+    phi_hat=c()
+    for (i in 1:n)
+    {
+      phi_hat[i]=arima(residus[i,],order=c(1,0,0))$coef[1]
+    }
+    phi_hat_final=mean(phi_hat)
+    phi_hat_vect=rep(-phi_hat_final,(q-1))
+    racine_Sigma_hat_inv=bandSparse(q,k=c(1,0),diag=list(phi_hat_vect,c(sqrt(1-phi_hat_final^2),rep(1,(q-1)))))
+    return (racine_Sigma_hat_inv)  
+  }
+  
+  ## Whitening with the non parametric method
+  if(typeDep=="nonparam")
+  {   
+    vector_cov=matrix(0,n,q)
+    for (i in 1:n)
+    {
+      vector_cov[i,]=acf(residus[i,],type="covariance",plot=FALSE,lag.max=(q-1))$acf
+    }
+    vector_cov_estim=colMeans(vector_cov)
+    cov_matrix=toeplitz(vector_cov_estim)
+    racine_Sigma_hat_inv=Matrix(round(solve(chol(cov_matrix)),digits=6))
+    return (racine_Sigma_hat_inv)
+  }
+}

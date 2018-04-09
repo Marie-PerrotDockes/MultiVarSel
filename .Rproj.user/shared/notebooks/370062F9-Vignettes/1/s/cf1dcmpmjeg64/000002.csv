@@ -1,0 +1,1 @@
+"0","residual <- lm(as.matrix(Y) ~ X - 1)$residuals"
