@@ -66,7 +66,7 @@ We then generate a sparse matrix *B* of coefficients and a matrix of covariables
 s  <- round(sparsity*p*q) 
 ij <- arrayInd(sample(1:(p*q), size = s), c(p,q))
 B <- sparseMatrix(i = ij[, 1], j = ij[, 2],
-                   x = runif(s) * sample(c(-1,1),s,rep=T),
+                   x = runif(s, 1, 2) * sample(c(-1,1),s,rep=T),
                    dims = c(p,q))
 
 X <- matrix(rnorm(n*p),n,p)
@@ -100,9 +100,9 @@ result
 ```
 
     ##          Pvalue    Decision
-    ## AR1       0.652 WHITE NOISE
-    ## ARMA 1 1  0.576 WHITE NOISE
-    ## nonparam  0.911 WHITE NOISE
+    ## AR1       0.509 WHITE NOISE
+    ## ARMA 1 1  0.507 WHITE NOISE
+    ## nonparam  0.937 WHITE NOISE
 
 We then select the simplest model that allows us to remove the dependence in the data, in that case the *A**R*(1) modelling. We compute the square root of the inverse of the estimator of the covariance matrix of each row of the residuals matrix using the *A**R*(1) modelling as follows:
 
@@ -133,7 +133,7 @@ p
 
 ![](README_files/figure-markdown_github/unnamed-chunk-9-1.png)
 
-If we take a threshold of 0.95, meaning that we keep as non null values only the ones that are considered as non null in more than 95% of the times we have a True Positive Rate equal to 0.2 and a False Positive Rate equal to 0.
+If we take a threshold of 0.95, meaning that we keep as non null values only the ones that are considered as non null in more than 95% of the times we have a True Positive Rate equal to 1 and a False Positive Rate equal to 0.
 
 An exemple in metabolomics
 --------------------------
@@ -184,9 +184,6 @@ In this application, the design matrix *X* is the design matrix of a one-way ANO
 ``` r
 Frequencies <- variable_selection(Y = Y, group = group, nb_repli = 100, typeDep = 'ARMA', pAR = 1, qMA = 1)
 ```
-
-    ## Warning in arima(x, order = c(pAR, 0, qMA)): possible convergence problem:
-    ## optim gave code = 1
 
 The following plot displays the frequencies at which each coefficient of *B* is considered as being non null which corresponds to the features (m/z values) characterizing the different levels.
 

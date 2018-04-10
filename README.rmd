@@ -64,7 +64,7 @@ We then generate a sparse matrix $B$ of coefficients and a matrix of covariables
 s  <- round(sparsity*p*q) 
 ij <- arrayInd(sample(1:(p*q), size = s), c(p,q))
 B <- sparseMatrix(i = ij[, 1], j = ij[, 2],
-                   x = runif(s) * sample(c(-1,1),s,rep=T),
+                   x = runif(s, 1, 2) * sample(c(-1,1),s,rep=T),
                    dims = c(p,q))
 
 X <- matrix(rnorm(n*p),n,p)
