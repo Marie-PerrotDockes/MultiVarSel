@@ -1,7 +1,16 @@
 ---
-output: github_document
+title: "Vignette MultiVarSel"
+author: "Marie Perrot-Dockès, Céline Lévy-Leduc, Julien Chiquet"
+date: "5 avril 2018"
+output:
+  md_document:
+    variant: markdown_github
 ---
 
+
+```{r setup, include=FALSE, message = FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
 
 
 # MultiVarSel
