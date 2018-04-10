@@ -1,13 +1,7 @@
 ---
-title: "Vignette MultiVarSel"
-author: "Marie Perrot-Dockès, Céline Lévy-Leduc, Julien Chiquet"
-date: "5 avril 2018"
-output: pdf_document
+output: github_document
 ---
 
-```{r setup, include=FALSE, message = FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
 
 
 # MultiVarSel
