@@ -1,1 +1,98 @@
-]0;/home/perrot-dockes/Documents/Multivar_selec/Multivar_selec/MultiVarSel]0;perrot-dockes@mmip-HP-Z420-Workstation: ~/Documents/Multivar_selec/Multivar_selec/MultiVarSel[01;32mperrot-dockes@mmip-HP-Z420-Workstation[00m:[01;34m~/Documents/Multivar_selec/Multivar_selec/MultiVarSel[00m$ 
+]0;/home/perrot-dockes/Documents/Multivar_selec/Multivar_selec/MultiVarSel]0;perrot-dockes@mmip-HP-Z420-Workstation: ~/Documents/Multivar_selec/Multivar_selec/MultiVarSel[01;32mperrot-dockes@mmip-HP-Z420-Workstation[00m:[01;34m~/Documents/Multivar_selec/Multivar_selec/MultiVarSSel[00m$ 
+]0;/home/perrot-dockes/Documents/Multivar_selec/Multivar_selec/MultiVarSel]0;perrot-dockes@mmip-HP-Z420-Workstation: ~/Documents/Multivar_selec/Multivar_selec/MultiVarSel[01;32mperrot-dockes@mmip-HP-Z420-Workstation[00m:[01;34m~/Documents/Multivar_selec/Multivar_selec/MultiVarSSel[00m$ $[Kcd ..
+]0;/home/perrot-dockes/Documents/Multivar_selec/Multivar_selec]0;perrot-dockes@mmip-HP-Z420-Workstation: ~/Documents/Multivar_selec/Multivar_selec[01;32mperrot-dockes@mmip-HP-Z420-Workstation[00m:[01;34m~/Documents/Multivar_selec/Multivar_selec[00m$ cd ..
+]0;/home/perrot-dockes/Documents/Multivar_selec]0;perrot-dockes@mmip-HP-Z420-Workstation: ~/Documents/Multivar_selec[01;32mperrot-dockes@mmip-HP-Z420-Workstation[00m:[01;34m~/Documents/Multivar_selec[00m$ cd ..
+]0;/home/perrot-dockes/Documents]0;perrot-dockes@mmip-HP-Z420-Workstation: ~/Documents[01;32mperrot-dockes@mmip-HP-Z420-Workstation[00m:[01;34m~/Documents[00m$ cd.. ..*..
+bash: cd: *..: Aucun fichier ou dossier de ce type
+]0;/home/perrot-dockes/Documents]0;perrot-dockes@mmip-HP-Z420-Workstation: ~/Documents[01;32mperrot-dockes@mmip-HP-Z420-Workstation[00m:[01;34m~/Documents[00m$ cd *..[1P..
+]0;/home/perrot-dockes]0;perrot-dockes@mmip-HP-Z420-Workstation: ~[01;32mperrot-dockes@mmip-HP-Z420-Workstation[00m:[01;34m~[00m$ cd
+]0;/home/perrot-dockes]0;perrot-dockes@mmip-HP-Z420-Workstation: ~[01;32mperrot-dockes@mmip-HP-Z420-Workstation[00m:[01;34m~[00m$ cd Mu
+MultiV/      MultiVarSel/ Music/       Musique/     
+]0;perrot-dockes@mmip-HP-Z420-Workstation: ~[01;32mperrot-dockes@mmip-HP-Z420-Workstation[00m:[01;34m~[00m$ cd Mu[K ..*..[1P..[K MultiVarSel/
+]0;/home/perrot-dockes/MultiVarSel]0;perrot-dockes@mmip-HP-Z420-Workstation: ~/MultiVarSel[01;32mperrot-dockes@mmip-HP-Z420-Workstation[00m:[01;34m~/MultiVarSel[00m$ git commut [K[K[Kit 
+Sur la branche master
+Votre branche est à jour avec 'origin/master'.
+Modifications qui ne seront pas validées :
+	[31mmodifié :         .Rproj.user/37F7E9A6/console06/8F40098C[m
+	[31mmodifié :         .Rproj.user/37F7E9A6/console06/INDEX001[m
+	[31mmodifié :         .Rproj.user/37F7E9A6/pcs/files-pane.pper[m
+	[31mmodifié :         .Rproj.user/37F7E9A6/pcs/source-pane.pper[m
+	[31mmodifié :         .Rproj.user/37F7E9A6/pcs/workbench-pane.pper[m
+	[31mmodifié :         .Rproj.user/37F7E9A6/persistent-state[m
+	[31mmodifié :         .Rproj.user/37F7E9A6/rmd-outputs[m
+	[31mmodifié :         .Rproj.user/37F7E9A6/sources/prop/INDEX[m
+	[31msupprimé :        .Rproj.user/37F7E9A6/sources/s-D8CD165A/1A04D4F6[m
+	[31msupprimé :        .Rproj.user/37F7E9A6/sources/s-D8CD165A/1A04D4F6-contents[m
+	[31msupprimé :        .Rproj.user/37F7E9A6/sources/s-D8CD165A/26FCA99A[m
+	[31msupprimé :        .Rproj.user/37F7E9A6/sources/s-D8CD165A/26FCA99A-contents[m
+	[31msupprimé :        .Rproj.user/37F7E9A6/sources/s-D8CD165A/32379CF5-contents[m
+	[31msupprimé :        .Rproj.user/37F7E9A6/sources/s-D8CD165A/347C24E5[m
+	[31msupprimé :        .Rproj.user/37F7E9A6/sources/s-D8CD165A/347C24E5-contents[m
+	[31msupprimé :        .Rproj.user/37F7E9A6/sources/s-D8CD165A/392EAFB-contents[m
+	[31msupprimé :        .Rproj.user/37F7E9A6/sources/s-D8CD165A/3F50646B-contents[m
+	[31msupprimé :        .Rproj.user/37F7E9A6/sources/s-D8CD165A/4535703-contents[m
+	[31msupprimé :        .Rproj.user/37F7E9A6/sources/s-D8CD165A/53DAC614[m
+	[31msupprimé :        .Rproj.user/37F7E9A6/sources/s-D8CD165A/53DAC614-contents[m
+	[31msupprimé :        .Rproj.user/37F7E9A6/sources/s-D8CD165A/5B251B43[m
+	[31msupprimé :        .Rproj.user/37F7E9A6/sources/s-D8CD165A/5B251B43-contents[m
+	[31msupprimé :        .Rproj.user/37F7E9A6/sources/s-D8CD165A/604CBCC0[m
+	[31msupprimé :        .Rproj.user/37F7E9A6/sources/s-D8CD165A/604CBCC0-contents[m
+	[31msupprimé :        .Rproj.user/37F7E9A6/sources/s-D8CD165A/689A8A7D-contents[m
+	[31msupprimé :        .Rproj.user/37F7E9A6/sources/s-D8CD165A/95854CC4-contents[m
+	[31msupprimé :        .Rproj.user/37F7E9A6/sources/s-D8CD165A/A5837E6[m
+	[31msupprimé :        .Rproj.user/37F7E9A6/sources/s-D8CD165A/A5837E6-contents[m
+	[31msupprimé :        .Rproj.user/37F7E9A6/sources/s-D8CD165A/AD5CFE96-contents[m
+	[31msupprimé :        .Rproj.user/37F7E9A6/sources/s-D8CD165A/B0BD2414[m
+	[31msupprimé :        .Rproj.user/37F7E9A6/sources/s-D8CD165A/B0BD2414-contents[m
+	[31msupprimé :        .Rproj.user/37F7E9A6/sources/s-D8CD165A/B6B554CE[m
+	[31msupprimé :        .Rproj.user/37F7E9A6/sources/s-D8CD165A/B6B554CE-contents[m
+	[31msupprimé :        .Rproj.user/37F7E9A6/sources/s-D8CD165A/BF8B437E[m
+	[31msupprimé :        .Rproj.user/37F7E9A6/sources/s-D8CD165A/BF8B437E-contents[m
+	[31msupprimé :        .Rproj.user/37F7E9A6/sources/s-D8CD165A/C2CDA0AF-contents[m
+	[31msupprimé :        .Rproj.user/37F7E9A6/sources/s-D8CD165A/C3AE579D[m
+	[31msupprimé :        .Rproj.user/37F7E9A6/sources/s-D8CD165A/C3AE579D-contents[m
+	[31msupprimé :        .Rproj.user/37F7E9A6/sources/s-D8CD165A/CB58EB88[m
+	[31msupprimé :        .Rproj.user/37F7E9A6/sources/s-D8CD165A/CB58EB88-contents[m
+	[31msupprimé :        .Rproj.user/37F7E9A6/sources/s-D8CD165A/D55F60AE[m
+	[31msupprimé :        .Rproj.user/37F7E9A6/sources/s-D8CD165A/D55F60AE-contents[m
+	[31msupprimé :        .Rproj.user/37F7E9A6/sources/s-D8CD165A/D77A9C1E-contents[m
+	[31msupprimé :        .Rproj.user/37F7E9A6/sources/s-D8CD165A/DB16ABDC[m
+	[31msupprimé :        .Rproj.user/37F7E9A6/sources/s-D8CD165A/DB16ABDC-contents[m
+	[31msupprimé :        .Rproj.user/37F7E9A6/sources/s-D8CD165A/E506A4D0-contents[m
+	[31msupprimé :        .Rproj.user/37F7E9A6/sources/s-D8CD165A/FF0FBFB1[m
+	[31msupprimé :        .Rproj.user/37F7E9A6/sources/s-D8CD165A/FF0FBFB1-contents[m
+	[31msupprimé :        .Rproj.user/37F7E9A6/sources/s-D8CD165A/lock_file[m
+	[31mmodifié :         .Rproj.user/shared/notebooks/paths[m
+	[31mmodifié :         DESCRIPTION[m
+	[31mmodifié :         NAMESPACE[m
+	[31mmodifié :         R/variable_selection.R[m
+	[31mmodifié :         R/whitening.R[m
+	[31mmodifié :         R/whitening_choice.R[m
+	[31mmodifié :         R/whitening_test.R[m
+	[31mmodifié :         README.html[m
+	[31mmodifié :         README.rmd[m
+	[31mmodifié :         Vignettes/Vignettes.Rmd[m
+	[31mmodifié :         Vignettes/Vignettes.pdf[m
+	[31mmodifié :         data/copals_camera.RData[m
+	[31mmodifié :         man/variable_selection.Rd[m
+	[31mmodifié :         man/whitening.Rd[m
+	[31mmodifié :         man/whitening_choice.Rd[m
+	[31mmodifié :         man/whitening_test.Rd[m
+
+Fichiers non suivis:
+	[31m.gitignore[m
+	[31mR/DataY.R[m
+	[31mR/group.R[m
+	[31mREADME.aux[m
+	[31mREADME.fdb_latexmk[m
+	[31mREADME.fls[m
+	[31mREADME.log[m
+	[31mREADME.out[m
+	[31mREADME.tex[m
+	[31mVignette.Rmd[m
+	[31mVignette.pdf[m
+	[31mman/Y.Rd[m
+	[31mman/group.Rd[m
+
+aucune modification ajoutée à la validation
+]0;/home/perrot-dockes/MultiVarSel]0;perrot-dockes@mmip-HP-Z420-Workstation: ~/MultiVarSel[01;32mperrot-dockes@mmip-HP-Z420-Workstation[00m:[01;34m~/MultiVarSel[00m$ git commit [K[K[K[K[K[K[Kadd .

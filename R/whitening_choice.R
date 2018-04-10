@@ -6,12 +6,14 @@
 #' covariable to use to whitened the residuals.
 #' @param  pAR numerical, only use if typeDep = "ARMA", the parameters p for the ARMA(p, q) process
 #' @param qMA numerical, only use if typeDep = "ARMA", the parameters q for the ARMA(p, q) process
-#' @return It provides a table given the p-values for the different whitening tests apply to residuals multiplied by the inverse of the square root of the covariance matrix estimated.
+#' @return It provides a table given the p-values for the different whitening tests apply to residuals multiplied
+#'  by the inverse of the square root of the covariance matrix estimated.
 #' If the p-value is small (frequently lower than 0.05)
 #' it means that the hypothesis that each row of the  residuals "whitened" matrix is a white noise is rejected.
 #' @examples
 #' data(copals_camera)
 #' Y=scale(Y[,1:100])
+#' X <- model.matrix( ~ group + 0)
 #' residuals=lm(as.matrix(Y)~X-1)$residuals
 #' whitening_choice(residuals,c("AR1","nonparam","ARMA"),
 #' pAR=1,qMA=1)

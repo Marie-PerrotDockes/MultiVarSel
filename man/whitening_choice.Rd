@@ -29,6 +29,7 @@ modellings: AR1, ARMA, non parametric and without any whitening.
 \examples{
 data(copals_camera)
 Y=scale(Y[,1:100])
+X <- model.matrix( ~ group + 0)
 residuals=lm(as.matrix(Y)~X-1)$residuals
 whitening_choice(residuals,c("AR1","nonparam","ARMA"),
 pAR=1,qMA=1)

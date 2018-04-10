@@ -19,6 +19,7 @@ This function provides the p-value of an adaptation of the Portmanteau statistic
 \examples{
 data(copals_camera)
 Y=scale(Y[,1:100])
+X <- model.matrix( ~ group + 0)
 residuals=lm(as.matrix(Y)~X-1)$residuals
 square_root_inv_hat_Sigma=whitening(residuals,"AR1",
                                     pAR=1,qMA=0)

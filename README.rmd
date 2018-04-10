@@ -1,7 +1,19 @@
+---
+title: "Vignette MultiVarSel"
+author: "Marie Perrot-Dockès, Céline Lévy-Leduc, Julien Chiquet"
+date: "5 avril 2018"
+output: pdf_document
+---
+
+```{r setup, include=FALSE, message = FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
 # MultiVarSel
 
-This is an R package to perform variable selection in the multivariate Linear model
-taking into account the dependence that may exist between the responses. It consists in estimating beforehand the covariance matrix Σ of
+This is an R package to perform variable selection in the multivariate linear model
+taking into account the dependence that may exist between the responses. It consists in estimating beforehand the covariance matrix $\Sigma$ of
 the responses and to plug this estimator in a Lasso criterion, in order to obtain a sparse
 estimator of the coefficient matrix.
 
@@ -12,23 +24,23 @@ This vignette explains how to use the package \textbf{MultiVarSel} which is dedi
 selection  in  high-dimensional    linear  models  taking  into  account  the  dependence
 that  may  exist  between  the  columns  of  the  observations  matrix. The model can be described as follows : 
 
-$$
+\begin{equation}\label{eq:model}
 Y=XB+E,
-$$
-where $Y$ is a $n\times q$ matrix of responses, $X$ a $n \times p$ matrix of covariables, $B$ a sparse matrix of coefficients and $E$ a random error matrix such that $\forall i \in (1,\cdots,n) ; E_i = (E_{i,1},\dots,E_{i,q})\sim\mathcal{N}(0,\Sigma_q)$. 
-The package consists in estimating $\Sigma_q$ beforehand  and to plug this estimator in a Lasso criterion, in order to obtain a sparse estimator of the coefficient matrix, $B$.
+\end{equation}
+where $Y$ is a $n\times q$ matrix of responses, $X$ is a $n \times p$ matrix of covariables, $B$ is a $p\times q$ sparse matrix of coefficients and $E$ is a random error matrix such that $\forall i \in \{1,\cdots,n\}$, $E_i = (E_{i,1},\dots,E_{i,q})\sim\mathcal{N}(0,\Sigma)$. 
+The package consists in estimating $\Sigma$ beforehand  and to plug this estimator in a Lasso criterion, in order to obtain a sparse estimator of the coefficient matrix $B$.
 
-The package has to be installed and then load as follows : 
+The package has to be installed and then loaded as follows : 
 
 ```{r}
-devtools::install_github("Marie-PerrotDockes/MultiVarSel")
+# devtools::install_github("Marie-PerrotDockes/MultiVarSel")
 library(MultiVarSel)
 ```
 
 
 ## Numerical experiment 
- We first show an application of our methodology to a simulated data set. 
-We start by generate a random error matrix $E$ as describe in the Introduction.
+We first show an application of our methodology to a simulated data set where the covariance matrix $\Sigma$ is the covariance matrix of an AR(1) process.
+We start by generating a random error matrix $E$ as described in the Introduction as follows.
 
 ```{r}
 n <- 30
@@ -36,18 +48,11 @@ q <- 100
 p <- 5
 rho <- 0.9
 sparsity <- 0.01
-Generate_sigma_sqrt <- function(q,rho) {
-    diag <- sqrt(1-rho^2) * rho^(0:(q-2))
-    diags <- lapply(0:(q-1), function(k) {
-        return(c(rho^k, rep(diag[k+1],q-k-1)))
-    })
-    return(bandSparse(q,k=0:(q-1),diag=diags))
-}
 
-Sigma_sqrt <-  Generate_sigma_sqrt(q, rho)
-
-white.noise   <- matrix(rnorm(q*n),n,q)
-E <- as.matrix(white.noise %*% Sigma_sqrt )
+E <- t(sapply(1:n,function(i){
+  as.numeric(arima.sim(q,model=list(ar = rho, ma = 0)))
+}))
+   
 ```
 
 We then generate a sparse matrix $B$ of coefficients and a matrix of covariables $X$.
@@ -65,47 +70,54 @@ Y <- X %*% B  + E
 ```
 
 
-To apply our methodology we start by estimate the matrix $E$ by calculate the residuals independently on all the columns of $Y$: 
+To apply our methodology we start by estimating the matrix $E$ by computing the residuals independently on all the columns of $Y$: 
 
 ```{r}
 residual <- lm(as.matrix(Y) ~ X - 1)$residuals
 ```
 
-We then test use a Portmanteau test to check if each row of this matrix is a white noise. 
+We then use a Portmanteau test to check if each row of this matrix  $\widehat{E}$ is a white noise or not. 
 
 
 ```{r}
 whitening_test(residual)
 ```
-The $p-value$ is really small we reject the hypothesis that each row of the residual matrix is a white noise. 
+The $p-value$ is really small hence we reject the hypothesis that each row of the residual matrix is a white noise which is an expected result since each row of $E$ is an AR(1) process.
 
-We then try to remoove the dependance among the columns of the residuals matrix by estimate the covariance matrix of the lines of $E$. To estimate it we try different structure for this covariance. The simplest assumption is that each row of $E$ follows an $AR(1)$ process, we also propose a modelisation where each row is an $ARMA(p,q)$ process and a  nonparametric one where $\Sigma$ is assumed to be Toeplitz. 
-To compare this different estimation we perform a Portmenteau test on the matrix "whithened" $residuals\hat{\Sigma_q^{-1/2}}$, where  $\hat{\Sigma_q^{-1/2}}$ is the square root of the inverse of the estimation of $\Sigma$.
+We then try to remove the dependence among the columns of the residuals matrix by estimating the covariance matrix of the rows of $E$. To estimate it we try different structures for this covariance. The simplest assumption is that each row of $E$ follows an $AR(1)$ process, we also propose a modelisation where each row is an $ARMA(p,q)$ process and a nonparametric one where $\Sigma$ is only assumed to be Toeplitz. 
+To compare this different estimations we perform a Portmenteau test on the "whithened" matrix  $\widehat{E}\widehat{\Sigma}^{-1/2}$, where  $\hat{\Sigma^{-1/2}}$ is the square root of the inverse of the estimation of $\Sigma$.
+
+With the following code we test the AR(1), ARMA(1,1) and nonparametric dependence structures :
 
 ```{r}
 result <- whitening_choice(residual, c("AR1","ARMA","nonparam"), pAR = 1, qMA = 1)
 result
 ```
 
-We then select the easiest model that whitened the data, in that case the $AR(1)$ modelling.
+We then select the simplest model that allows us to remove the dependence in the data, in that case the $AR(1)$ modelling.
 We compute the square root of the inverse of the estimator of the covariance matrix of each
-row of the residuals matrix using the $AR(1)$ modelling as follows :
+row of the residuals matrix using the $AR(1)$ modelling as follows:
 
 ```{r}
-square_root_inv_hat_Sigma <- whitening(residual, "ARMA", pAR = 1, qMA = 0)
+square_root_inv_hat_Sigma <- whitening(residual, "AR1", pAR = 1, qMA = 0)
 ```
 
-To perform a variable selection we will transform our data to be abble to use the Lasso criterion introduce by Tibshirani in 1996, and available in the glmnet package.
+In order to whiten the data (remove the dependence), we transform the data as follows:
+\begin{equation}\label{eq:model_whitened}
+\boldsymbol{Y}\widehat{\boldsymbol{\Sigma}}_q^{-1/2}  
+    =\boldsymbol{X}\boldsymbol{B}\widehat{\boldsymbol{\Sigma}}_q^{-1/2} + \boldsymbol{E}\widehat{\boldsymbol{\Sigma}}_q^{-1/2}.
+\end{equation}
 
-  In a linear model ${\mathcal{Y}}={\mathcal{X}}\mathcal{B}+{\mathcal{E}}$, the Lasso estimator of $\mathcal{B}$ is
-    \begin{equation*}
-      \widehat{\mathcal{B}}(\lambda)=\textrm{Argmin}_\mathcal{B}\left\{\|\mathcal{Y}-\mathcal{X}\mathcal{B}\|_2^2+\lambda\|\mathcal{B}\|_1\right\},
+The idea is then to use the Lasso criterion introduced by Tibshirani in 1996, and available in the R package \texttt{glmnet} on these whitened data.
+We recall that in the classical linear model
+$${\mathcal{Y}}={\mathcal{X}}\mathcal{B}+{\mathcal{E}},$$ 
+where $\mathcal{Y}$, $\mathcal{B}$ and $\mathcal{E}$ are vectors and $\mathcal{X}$ is a matrix, the Lasso estimator of $\mathcal{B}$ is defined by
+ \begin{equation*}
+      \widehat{\mathcal{B}}(\lambda)=\textrm{Argmin}_\mathcal{B}\left\{\|\mathcal{Y}-\mathcal{X}\mathcal{B}\|_2^2+\lambda\|\mathcal{B}\|_1\right\}.
     \end{equation*}
-where $\mathcal{Y}$ and $\mathcal{B}$ are vector, $\mathcal{E}$ is a white noise and $\mathcal{X}$ is a matrix.
+
  
-In order to be abble to use the Lasso criterion we will use the operator vec to 
-    $\boldsymbol{Y}\widehat{\boldsymbol{\Sigma}}_q^{-1/2}  
-    =\boldsymbol{X}\boldsymbol{B}\widehat{\boldsymbol{\Sigma}}_q^{-1/2} ++ \boldsymbol{E}\widehat{\boldsymbol{\Sigma}}_q^{-1/2}$
+In order to be able to use the Lasso criterion we will apply the vec operator to \eqref{eq:model_whitened}
     \begin{align*}
       {\mathcal{Y}}&=
                      vec(\boldsymbol{Y}\widehat{\boldsymbol{\Sigma}}_q^{-1/2})  
@@ -117,26 +129,26 @@ In order to be abble to use the Lasso criterion we will use the operator vec to
     \end{align*}    
 
 
-We are back to $\mathcal{Y}$ and $\mathcal{B}$ are vectors, $\mathcal{E}$ is a white noise and $\mathcal{X}$ is a matrix. So we can apply the lasso criterion to estimate the non null positions of $\mathcal{B}=vec(\boldsymbol{B})$ and deduct from it the non null positions  of $B$. In order to avoid the false positif we add a stability selection step.  This different steps are iplemented in the function variable selection of the MultiVarSel package.
+The Lasso criterion applied to $\mathcal{Y}}=vec(\boldsymbol{Y}\widehat{\boldsymbol{\Sigma}}_q^{-1/2})$ will provide an estimation of the non null positions of $\mathcal{B}=vec(\boldsymbol{B})$ and hence the non null positions  of $B$. In order to avoid false positive positions we add a stability selection step.  These different steps (whitening, vectorization, Lasso, stability selection) are implemented in the function \texttt{variable_selection} of the R package \texttt{MultiVarSel}.
 
 ```{r}
- # source('~/Documents/Multivar_selec/Multivar_selec/MultiVarSel/R/variable_selection.R', echo=TRUE)
-Frequencies=variable_selection(Y = Y, X = X, nb_repli = 50)
+Frequencies=variable_selection(Y = Y, X = X, nb_repli = 50, typeDep =  "AR1")
 ```
 
+In the previous command line, \texttt{nb_repli} corresponds to the number of replications which is used in the stability selection. Here it is equal to 50 but in practice we recommend to take it equal to 1000. The following plot displays the frequencies at which each coefficient of $B$ is considered as being non null. 
 
 ```{r}
 p <- ggplot(data = Frequencies[Frequencies$Frequencies >= 0.95, ],
            aes(x = Names_of_Y, y = Names_of_X, color = Frequencies, fill = Frequencies)) +
-           geom_tile(size = 0.75) + scale_color_gradient2(midpoint = 0.95, mid = 'orange')  +                        scale_fill_gradient2(midpoint = 0.95, mid = 'orange') +
+           geom_tile(size = 0.75) + scale_color_gradient2(midpoint = 0.95, mid = 'orange')  + scale_fill_gradient2(midpoint = 0.95, mid = 'orange') +
            theme_bw() + ylab('Levels of X') + xlab('Names of Y')
 p
 ```
 
-If we take a threshold at 0.95, meaning that we keep as non null values only the one that are kept in more than 95% of the times we have a True Positif Rate of `r sum(Frequencies$Frequencies > 0.95 & as.numeric(B) !=0) / sum(as.numeric(B)!=0)` and a False Positive Rate `r sum(Frequencies$Frequencies > 0.95 & as.numeric(B) ==0) / sum(as.numeric(B)==0)`.
+If we take a threshold of 0.95, meaning that we keep as non null values only the ones that are considered as non null in more than 95% of the times we have a True Positive Rate equal to `r sum(Frequencies$Frequencies > 0.95 & as.numeric(B) !=0) / sum(as.numeric(B)!=0)` and a False Positive Rate equal to `r  sum(Frequencies$Frequencies > 0.95 & as.numeric(B) ==0) / sum(as.numeric(B)==0)`.
 
 
-## An exemple in metabolomic 
+## An exemple in metabolomics 
 
 In this section we study a LC-MS (Liquid
 Chromatography-Mass Spectrometry) data set made of African copals
@@ -145,18 +157,24 @@ by trees belonging to two genera Copaifera (C) and Trachylobium (T) with
 a second level of classification coming from the geographical provenance
 of the Copaifera samples (West (W) or East (E) Africa). Since all the
 Trachylobium samples come from East Africa, we can use the modeling
-proposed in Equations (1) and (2) with C = 3 conditions: CE, CW and TE
-such that n CE = 9, n CW = 8 and n TE = 13. Our goal is to identify the
-most important features (the m/z values) for distinguishing the different
-conditions.
-In order to have a fast and reproducible exemple we focus on this section on the 200 first metaboliotes.
+proposed in \eqref{eq:model} where $X$ is a one-way ANOVA design matrix with 3 levels.
+Our goal is to identify the most important features (the m/z values) characterizing the different
+levels.
+In order to have a fast and reproducible example we focus in this section on the 200 first metabolites ($q=200$) but our package can handle
+much larger datasets (up to $q=5000$ in a few minutes).
 
 ```{r}
 data("copals_camera")
-Y <- scale(Y %>% as.matrix() %>% as.data.frame() %>% select(1:200))
+Y <- Y %>%  as.data.frame() %>% select(1:200) %>% scale()
 ```
 
-We start by calculate the residuals of the ANOVA models on each of the metabolites independently.
+We build the design matrix as follows
+
+```{r}
+X <- model.matrix( ~ group + 0)
+```
+
+We start by computing the residuals of the one-way ANOVA model for each metabolite independently.
 
 
 ```{r}
@@ -169,32 +187,33 @@ Then we test if the columns of the residuals are independent using the Portmante
 whitening_test(residuals)
 ```
 
-
-The $p-value$ is really small and the fact that each lines of $E$ is a white noise is rejected. 
-We will try our different modelisations of the covariance of the residuals and see if one manage to remoove the dependance among the columns of the residuals matrix using a Portmanteau test. 
-
+The $p-value$ is really small and thus the hypothesis that each row of $E$ is a white noise is rejected. 
+We try our different covariance modellings for the residuals and see if one manages to remove the dependence among the columns 
+of the residuals matrix by using a Portmanteau test. 
 
 ```{r}
 result=whitening_choice(residuals, c("AR1", "nonparam", "ARMA"), pAR = 1, qMA = 1)
 result
 ```
 
-The $AR(1)$ modelisation does not manage to remoove the dependance among the data but the two others do. We select the $ARMA(1,1)$ which is simplier than the non parametric.
+From this result, we observe that the $AR(1)$ modelling does not remove the dependence among the data 
+but the two others do. We select the $ARMA(1,1)$ modelling which is simpler than the nonparametric one.
 
 In this application, the design matrix $X$ is the design matrix of a one-way ANOVA.
- In that sceanrio we recommand to the user to use the argument group = your qualitative variable, of the variable_selection function. This argument will ensure that in the cross validation the different fold are homogeneously distributed among the levels of the qualitative variable.
+In that scenario we recommend to use the argument \texttt{group =} "your qualitative variable" in the \texttt{variable_selection} function. This argument will ensure that in the cross-validation the different fold are homogeneously distributed among the levels of the qualitative variable.
 
 
 ```{r}
-Frequencies <- variable_selection(Y = Y, group = X2, nb_repli = 100, typeDep = 'ARMA', pAR = 1, qMA = 1)
+Frequencies <- variable_selection(Y = Y, group = group, nb_repli = 100, typeDep = 'ARMA', pAR = 1, qMA = 1)
 ```
 
+The following plot displays the frequencies at which each coefficient of $B$ is considered as being non null which corresponds to the features (m/z values) characterizing the different levels.
 
 ```{r}
 Frequencies$Names_of_Y <- as.numeric(gsub('X','',Frequencies$Names_of_Y))
 p <- ggplot(data = Frequencies[Frequencies$Frequencies >= 0.95, ],
            aes(x = Names_of_Y, y = Names_of_X, color = Frequencies, fill = Frequencies)) +
-           geom_tile(size = 0.75) + scale_color_gradient2(midpoint = 0.95, mid = 'orange')  +                        scale_fill_gradient2(midpoint = 0.95, mid = 'orange') +
+           geom_tile(size = 0.75) + scale_color_gradient2(midpoint = 0.95, mid = 'orange')  + scale_fill_gradient2(midpoint = 0.95, mid = 'orange') +
            theme_bw() + ylab('Levels of X') + xlab('m/z')
 p
 ```

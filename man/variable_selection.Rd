@@ -37,6 +37,8 @@ This function allows the user to select the most relevant variables thanks
   selection approach.
 }
 \examples{
-Y <- scale(Y[,1:200])
-Frequencies <- variable_selection(Y = Y, X = X, nb_repli = 100, typeDep = 'ARMA', pAR = 1, qMA = 1)
+data("copals_camera")
+Y <- scale(Y[,1:50])
+Frequencies <- variable_selection(Y = Y, group = group,
+ nb_repli = 10, typeDep = 'AR1', pAR = 1, qMA = 0, nb.cores = 1)
 }
