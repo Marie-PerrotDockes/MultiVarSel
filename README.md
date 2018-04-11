@@ -50,7 +50,7 @@ We first show an application of our methodology to a simulated data set where th
 
 ``` r
 n <- 30
-q <- 100
+q <- 1000
 p <- 5
 rho <- 0.9
 sparsity <- 0.01
@@ -100,9 +100,9 @@ result
 ```
 
     ##          Pvalue    Decision
-    ## AR1       0.509 WHITE NOISE
-    ## ARMA 1 1  0.507 WHITE NOISE
-    ## nonparam  0.937 WHITE NOISE
+    ## AR1       0.816 WHITE NOISE
+    ## ARMA 1 1  0.819 WHITE NOISE
+    ## nonparam  0.989 WHITE NOISE
 
 We then select the simplest model that allows us to remove the dependence in the data, in that case the *A**R*(1) modelling. We compute the square root of the inverse of the estimator of the covariance matrix of each row of the residuals matrix using the *A**R*(1) modelling as follows:
 
@@ -118,7 +118,7 @@ In order to be able to use the Lasso criterion we will apply the vec operator to
 The Lasso criterion applied to $\\mathcal{Y}}=vec(\\boldsymbol{Y}\\widehat{\\boldsymbol{\\Sigma}}\_q^{-1/2})$ will provide an estimation of the non null positions of ℬ = *v**e**c*(**B**) and hence the non null positions of *B*. In order to avoid false positive positions we add a stability selection step. These different steps (whitening, vectorization, Lasso, stability selection) are implemented in the function of the R package .
 
 ``` r
-Frequencies=variable_selection(Y = Y, X = X, nb_repli = 50, typeDep =  "AR1")
+Frequencies=variable_selection(Y = Y, X = X, nb_repli = 500, typeDep =  "AR1")
 ```
 
 In the previous command line, corresponds to the number of replications which is used in the stability selection. Here it is equal to 50 but in practice we recommend to take it equal to 1000. The following plot displays the frequencies at which each coefficient of *B* is considered as being non null.
@@ -133,7 +133,7 @@ p
 
 ![](README_files/figure-markdown_github/unnamed-chunk-9-1.png)
 
-If we take a threshold of 0.95, meaning that we keep as non null values only the ones that are considered as non null in more than 95% of the times we have a True Positive Rate equal to 1 and a False Positive Rate equal to 0.
+If we take a threshold of 0.95, meaning that we keep as non null values only the ones that are considered as non null in more than 95% of the times we have a True Positive Rate equal to 0.98 and a False Positive Rate equal to 2.02020210^{-4}.
 
 An exemple in metabolomics
 --------------------------
@@ -142,7 +142,7 @@ In this section we study a LC-MS (Liquid Chromatography-Mass Spectrometry) data 
 
 ``` r
 data("copals_camera")
-Y <- Y %>%  as.data.frame() %>% select(1:200) %>% scale()
+Y <- scale(Y)
 ```
 
 We build the design matrix as follows
@@ -163,7 +163,7 @@ Then we test if the columns of the residuals are independent using the Portmante
 whitening_test(residuals)
 ```
 
-    ## [1] 5.676735e-229
+    ## [1] 0
 
 The *p* − *v**a**l**u**e* is really small and thus the hypothesis that each row of *E* is a white noise is rejected. We try our different covariance modellings for the residuals and see if one manages to remove the dependence among the columns of the residuals matrix by using a Portmanteau test.
 
@@ -174,27 +174,34 @@ result
 
     ##          Pvalue       Decision
     ## AR1           0 NO WHITE NOISE
-    ## nonparam  0.992    WHITE NOISE
-    ## ARMA 1 1  0.653    WHITE NOISE
+    ## nonparam  0.664    WHITE NOISE
+    ## ARMA 1 1      0 NO WHITE NOISE
 
 From this result, we observe that the *A**R*(1) modelling does not remove the dependence among the data but the two others do. We select the *A**R**M**A*(1, 1) modelling which is simpler than the nonparametric one.
 
 In this application, the design matrix *X* is the design matrix of a one-way ANOVA. In that scenario we recommend to use the argument "your qualitative variable" in the function. This argument will ensure that in the cross-validation the different fold are homogeneously distributed among the levels of the qualitative variable.
 
 ``` r
-Frequencies <- variable_selection(Y = Y, group = group, nb_repli = 100, typeDep = 'ARMA', pAR = 1, qMA = 1)
+Frequencies <- variable_selection(Y = Y, group = group, nb_repli = 500, typeDep = 'ARMA', pAR = 1, qMA = 1)
 ```
 
 The following plot displays the frequencies at which each coefficient of *B* is considered as being non null which corresponds to the features (m/z values) characterizing the different levels.
 
 ``` r
 Frequencies$Names_of_Y <- as.numeric(gsub('X','',Frequencies$Names_of_Y))
+```
+
+    ## Warning: NAs introduits lors de la conversion automatique
+
+``` r
 p <- ggplot(data = Frequencies[Frequencies$Frequencies >= 0.95, ],
            aes(x = Names_of_Y, y = Names_of_X, color = Frequencies, fill = Frequencies)) +
            geom_tile(size = 0.75) + scale_color_gradient2(midpoint = 0.95, mid = 'orange')  + scale_fill_gradient2(midpoint = 0.95, mid = 'orange') +
            theme_bw() + ylab('Levels of X') + xlab('m/z')
 p
 ```
+
+    ## Warning: Removed 1 rows containing missing values (geom_tile).
 
 ![](README_files/figure-markdown_github/unnamed-chunk-16-1.png)
 

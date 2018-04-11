@@ -47,7 +47,7 @@ We start by generating a random error matrix $E$ as described in the Introductio
 
 ```{r}
 n <- 30
-q <- 100
+q <- 1000
 p <- 5
 rho <- 0.9
 sparsity <- 0.01
@@ -135,7 +135,7 @@ In order to be able to use the Lasso criterion we will apply the vec operator to
 The Lasso criterion applied to $\mathcal{Y}}=vec(\boldsymbol{Y}\widehat{\boldsymbol{\Sigma}}_q^{-1/2})$ will provide an estimation of the non null positions of $\mathcal{B}=vec(\boldsymbol{B})$ and hence the non null positions  of $B$. In order to avoid false positive positions we add a stability selection step.  These different steps (whitening, vectorization, Lasso, stability selection) are implemented in the function \texttt{variable_selection} of the R package \texttt{MultiVarSel}.
 
 ```{r}
-Frequencies=variable_selection(Y = Y, X = X, nb_repli = 50, typeDep =  "AR1")
+Frequencies=variable_selection(Y = Y, X = X, nb_repli = 500, typeDep =  "AR1")
 ```
 
 In the previous command line, \texttt{nb_repli} corresponds to the number of replications which is used in the stability selection. Here it is equal to 50 but in practice we recommend to take it equal to 1000. The following plot displays the frequencies at which each coefficient of $B$ is considered as being non null. 
@@ -168,7 +168,7 @@ much larger datasets (up to $q=5000$ in a few minutes).
 
 ```{r}
 data("copals_camera")
-Y <- Y %>%  as.data.frame() %>% select(1:200) %>% scale()
+Y <- scale(Y)
 ```
 
 We build the design matrix as follows
@@ -207,7 +207,7 @@ In that scenario we recommend to use the argument \texttt{group =} "your qualita
 
 
 ```{r}
-Frequencies <- variable_selection(Y = Y, group = group, nb_repli = 100, typeDep = 'ARMA', pAR = 1, qMA = 1)
+Frequencies <- variable_selection(Y = Y, group = group, nb_repli = 500, typeDep = 'ARMA', pAR = 1, qMA = 1)
 ```
 
 The following plot displays the frequencies at which each coefficient of $B$ is considered as being non null which corresponds to the features (m/z values) characterizing the different levels.
