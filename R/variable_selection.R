@@ -1,22 +1,22 @@
 #' This function allows the user to select the most relevant variables thanks to
-#'  the estimation of their selection frequencies obtained by the stability
-#'   selection approach.
+#' the estimation of their selection frequencies obtained by the stability
+#' selection approach.
 #' @importFrom stats lm ARMAacf ARMAtoMA acf arima model.matrix pchisq
 #' @import glmnet
 #' @import parallel
 #' @import tidyverse
 #' @import Matrix
-#' @param  X a matrix of covariable
+#' @param  X a matrix of covariables
 #' @param  Y a response matrix
 #' @param  group if the model is an ANOVA, the group resulting from the categorical variable.
-#' @param  nb_replis numerical, number of replications in the Stability selection
+#' @param  nb_replis numerical, number of replications in the stability selection
 #' @param  nb.cores  numerical, number of cores used
-#' @param  typeDep character in c("AR1", "ARMA", "nonparam") defining which type of covariable to use
+#' @param  typeDep character in c("AR1", "ARMA", "nonparam") defining which type of dependence to use
 #' @param  pAR numerical, only use if typeDep = "ARMA", the parameters p for the ARMA(p, q) process
 #' @param qMA numerical, only use if typeDep = "ARMA", the parameters q for the ARMA(p, q) process
-#' @return  A data frame containing the selection frequencies of the different variables obtained
-#'  by the stability selection, the corresponding level in the design matrix and the associated
-#'  column of the observations matrix.
+#' @return A data frame containing the selection frequencies of the different variables obtained
+#' by the stability selection, the corresponding level in the design matrix and the associated
+#' column of the observations matrix.
 #' @examples
 #' data("copals_camera")
 #' Y <- scale(Y[,1:50])
@@ -24,7 +24,7 @@
 #'  nb_repli = 10, typeDep = 'AR1', pAR = 1, qMA = 0, nb.cores = 1)
 #' @export
 variable_selection <- function(X, group = NULL, Y, nb_replis = 1000,
-                              nb.cores = 3, typeDep = "AR1", pAR = 1, qMA = 0){
+                              nb.cores = 3, typeDep = "AR1", pAR = 1, qMA = 0, parallel = FALSE){
   if (!is.null(group)) X <- model.matrix(~ group + 0)
   p <- ncol(X)
   n <- nrow(X)
@@ -47,7 +47,7 @@ variable_selection <- function(X, group = NULL, Y, nb_replis = 1000,
     square_root_inv_hat_Sigma <- whitening(residuals, typeDep, pAR = pAR, qMA = qMA)
     Yr <- as.numeric(Y[sample != i, ] %*% square_root_inv_hat_Sigma)
     Xr <- kronecker(Matrix::t(square_root_inv_hat_Sigma), X[sample != i, ])
-    Lmin <- cv.glmnet(Xr, Yr, intercept = F)$lambda.min
+    Lmin <- cv.glmnet(Xr, Yr, intercept = F, parallel = parallel)$lambda.min
     ni <- sum(sample != i)
 
     Res <- mclapply(1:nb_repli, function(lala){

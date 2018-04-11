@@ -3,9 +3,9 @@
 \docType{data}
 \name{group}
 \alias{group}
-\title{This is a qualitative variable indicating the type of tree each rows of Y is.}
+\title{This is a qualitative variable indicating the type of tree each row of Y is.}
 \description{
-This is a qualitative variable indicating the type of tree each rows of Y is.
+This is a qualitative variable indicating the type of tree each row of Y is.
 }
 \references{
 \url{https://arxiv.org/pdf/1704.00076.pdf}

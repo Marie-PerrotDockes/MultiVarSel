@@ -7,10 +7,10 @@
 whitening_test(residuals)
 }
 \arguments{
-\item{residuals}{the residuals matrix of independant linear model on all the collumn of the response matrix}
+\item{residuals}{the residuals matrix obtained by fitting a linear model to each column of the response matrix as if they were independent}
 }
 \value{
-the p-value of a whithening test. If the p-value is small (frequently lower than 0.05)
+the p-value of a whithening test. If the p-value is small (generally smaller than 0.05)
  it means that the hypothesis that each row of the  residuals matrix is a white noise is rejected.
 }
 \description{
@@ -21,6 +21,5 @@ data(copals_camera)
 Y=scale(Y[,1:100])
 X <- model.matrix( ~ group + 0)
 residuals=lm(as.matrix(Y)~X-1)$residuals
-square_root_inv_hat_Sigma=whitening(residuals,"AR1",
-                                    pAR=1,qMA=0)
+whitening_test(residuals)
 }

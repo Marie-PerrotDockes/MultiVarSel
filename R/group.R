@@ -1,4 +1,4 @@
-#' This is a qualitative variable indicating the type of tree each rows of Y is.
+#' This is a qualitative variable indicating the type of tree each row of Y is.
 #'
 #' @name group
 #' @docType data

@@ -8,18 +8,18 @@ modellings: AR1, ARMA, non parametric and without any whitening.}
 whitening_choice(residuals, typeDeps = "AR1", pAR = 1, qMA = 0)
 }
 \arguments{
-\item{residuals}{the residuals matrix of independant linear model on all the collumn of the response matrix}
+\item{residuals}{the residuals matrix obtained by fitting a linear model to each column of the response matrix as if they were independent}
 
-\item{typeDeps}{character in c("AR1", "ARMA", "nonparam", "no_whitening",) defining which estimation of the
-covariable to use to whitened the residuals.}
+\item{typeDeps}{character in c("AR1", "ARMA", "nonparam", "no_whitening") defining which dependence structure to use to whiten the residuals.}
 
-\item{pAR}{numerical, only use if typeDep = "ARMA", the parameters p for the ARMA(p, q) process}
+\item{pAR}{numerical, only use if typeDep = "ARMA", the parameter p for the ARMA(p, q) process}
 
-\item{qMA}{numerical, only use if typeDep = "ARMA", the parameters q for the ARMA(p, q) process}
+\item{qMA}{numerical, only use if typeDep = "ARMA", the parameter q for the ARMA(p, q) process}
 }
 \value{
-It provides a table given the p-values for the different whitening tests apply to residuals multiplied by the inverse of the square root of the covariance matrix estimated.
-If the p-value is small (frequently lower than 0.05)
+It provides a table giving the p-values for the different whitening tests applied to the residuals multiplied on the right
+ by the inverse of the square root of the estimated covariance matrix.
+If the p-value is small (in general smaller than 0.05)
 it means that the hypothesis that each row of the  residuals "whitened" matrix is a white noise is rejected.
 }
 \description{
@@ -31,6 +31,6 @@ data(copals_camera)
 Y=scale(Y[,1:100])
 X <- model.matrix( ~ group + 0)
 residuals=lm(as.matrix(Y)~X-1)$residuals
-whitening_choice(residuals,c("AR1","nonparam","ARMA"),
+whitening_choice(residuals,c("AR1","nonparam","ARMA","no_whitening"),
 pAR=1,qMA=1)
 }

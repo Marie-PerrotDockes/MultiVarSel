@@ -1,4 +1,4 @@
-#' This is a metabolomic dataset from 30 copals sample of trees coming from Africa
+#' This is a metabolomic dataset from 30 copals samples of trees coming from Africa
 #'
 #' @name Y
 #' @docType data

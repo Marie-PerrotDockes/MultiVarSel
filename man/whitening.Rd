@@ -2,24 +2,24 @@
 % Please edit documentation in R/whitening.R
 \name{whitening}
 \alias{whitening}
-\title{This function provides an estimation of the inverse of the square root of the covariance matrix of each line of the residuals matrix.}
+\title{This function provides an estimation of the inverse of the square root of the covariance matrix of each row of the residuals matrix.}
 \usage{
 whitening(residuals, typeDep, pAR = 1, qMA = 0)
 }
 \arguments{
-\item{residuals}{the residuals matrix of independant linear model on all the collumn of the response matrix}
+\item{residuals}{the residuals matrix obtained by fitting a linear model to each column of the response matrix as if they were independent}
 
-\item{typeDep}{character in c("AR1", "ARMA", "nonparam") defining which type of covariable to use}
+\item{typeDep}{character in c("AR1", "ARMA", "nonparam") defining which type of dependence to use}
 
 \item{pAR}{numerical, only use if typeDep = "ARMA", the parameters p for the ARMA(p, q) process}
 
 \item{qMA}{numerical, only use if typeDep = "ARMA", the parameters p for the ARMA(p, q) process}
 }
 \value{
-It returns the estimation of the inverse of the square root of the covariance matrix of each line of residuals.
+It returns the estimation of the inverse of the square root of the covariance matrix of each row of the residuals matrix.
 }
 \description{
-This function provides an estimation of the inverse of the square root of the covariance matrix of each line of the residuals matrix.
+This function provides an estimation of the inverse of the square root of the covariance matrix of each row of the residuals matrix.
 }
 \examples{
 data(copals_camera)

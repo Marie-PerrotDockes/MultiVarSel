@@ -1,11 +1,11 @@
 Package: MultiVarSel
 Type: Package
-Title: Variable Selection in a multivariate linear model
+Title: Variable Selection in a Multivariate Linear Model
 Version: 1.1.2
 Author: Marie Perrot-Dockès, Céline Lévy-Leduc, Julien Chiquet
 Maintainer: Marie Perrot-Dockès <marie.perrot-dockes@agroparistech.fr>
-Description: It performs variables selection in a multivariate linear model by estimate the covariance matrix 
- of the residual and then use it to remoove the dependance that may exist among the responses eventually it performs variable selection by using the Lasso criterion.
+Description: It performs variable selection in a multivariate linear model by estimating the covariance matrix 
+ of the residuals then use it to remove the dependence that may exist among the responses and eventually performs variable selection by using the Lasso criterion.
 License: GPL (>= 2)
 Encoding: UTF-8
 LazyData: true
@@ -15,4 +15,5 @@ Depends:
    Matrix (>= 1.2-11),
    parallel,
    tidyverse
-   
+Suggests: R.rsp
+VignetteBuilder: R.rsp   

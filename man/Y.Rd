@@ -3,9 +3,9 @@
 \docType{data}
 \name{Y}
 \alias{Y}
-\title{This is a metabolomic dataset from 30 copals sample of trees coming from Africa}
+\title{This is a metabolomic dataset from 30 copals samples of trees coming from Africa}
 \description{
-This is a metabolomic dataset from 30 copals sample of trees coming from Africa
+This is a metabolomic dataset from 30 copals samples of trees coming from Africa
 }
 \references{
 \url{https://arxiv.org/pdf/1704.00076.pdf}

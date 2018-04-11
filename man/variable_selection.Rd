@@ -2,29 +2,29 @@
 % Please edit documentation in R/variable_selection.R
 \name{variable_selection}
 \alias{variable_selection}
-\title{This function allows the user to select the most relevant variables thanks
+\title{This function allows the user to select the most relevant variables thanks to
  the estimation of their selection frequencies obtained by the stability
   selection approach.}
 \usage{
 variable_selection(X, group = NULL, Y, nb_replis = 1000, nb.cores = 3,
-  typeDep = "AR1", pAR = 1, qMA = 0)
+  typeDep = "AR1", pAR = 1, qMA = 0, parallel = FALSE)
 }
 \arguments{
-\item{X}{a matrix of covariable}
+\item{X}{a matrix of covariables}
 
-\item{group}{if the model is an ANOVA the group resulting from the categorical variable.}
+\item{group}{if the model is an ANOVA, the group resulting from the categorical variable.}
 
 \item{Y}{a response matrix}
 
-\item{nb_replis}{numerical, number of replications in the Stability selection}
+\item{nb_replis}{numerical, number of replications in the stability selection}
 
 \item{nb.cores}{numerical, number of cores used}
 
-\item{typeDep}{character in c("AR1", "ARMA", "nonparam") defining which type of covariable to use}
+\item{typeDep}{character in c("AR1", "ARMA", "nonparam") defining which type of dependence to use}
 
 \item{pAR}{numerical, only use if typeDep = "ARMA", the parameters p for the ARMA(p, q) process}
 
-\item{qMA}{numerical, only use if typeDep = "ARMA", the parameters p for the ARMA(p, q) process}
+\item{qMA}{numerical, only use if typeDep = "ARMA", the parameters q for the ARMA(p, q) process}
 }
 \value{
 A data frame containing the selection frequencies of the different variables obtained
@@ -32,7 +32,7 @@ A data frame containing the selection frequencies of the different variables obt
  column of the observations matrix.
 }
 \description{
-This function allows the user to select the most relevant variables thanks
+This function allows the user to select the most relevant variables thanks to
  the estimation of their selection frequencies obtained by the stability
   selection approach.
 }
