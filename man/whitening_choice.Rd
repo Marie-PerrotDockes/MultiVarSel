@@ -18,9 +18,9 @@ whitening_choice(residuals, typeDeps = "AR1", pAR = 1, qMA = 0)
 }
 \value{
 It provides a table giving the p-values for the different whitening tests applied to the residuals multiplied on the right
- by the inverse of the square root of the estimated covariance matrix.
+by the inverse of the square root of the estimated covariance matrix.
 If the p-value is small (in general smaller than 0.05)
-it means that the hypothesis that each row of the  residuals "whitened" matrix is a white noise is rejected.
+it means that the hypothesis that each row of the  residuals "whitened" matrix is a white noise, is rejected.
 }
 \description{
 This function helps to choose the best whitening strategy among the following types of dependence

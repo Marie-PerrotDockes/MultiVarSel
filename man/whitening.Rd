@@ -11,9 +11,9 @@ whitening(residuals, typeDep, pAR = 1, qMA = 0)
 
 \item{typeDep}{character in c("AR1", "ARMA", "nonparam") defining which type of dependence to use}
 
-\item{pAR}{numerical, only use if typeDep = "ARMA", the parameters p for the ARMA(p, q) process}
+\item{pAR}{numerical, only use if typeDep = "ARMA", the parameter p for the ARMA(p, q) process}
 
-\item{qMA}{numerical, only use if typeDep = "ARMA", the parameters p for the ARMA(p, q) process}
+\item{qMA}{numerical, only use if typeDep = "ARMA", the parameter q for the ARMA(p, q) process}
 }
 \value{
 It returns the estimation of the inverse of the square root of the covariance matrix of each row of the residuals matrix.

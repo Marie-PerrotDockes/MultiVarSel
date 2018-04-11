@@ -2,8 +2,8 @@
 #'
 #' @param  residuals the residuals matrix obtained by fitting a linear model to each column of the response matrix as if they were independent
 #' @param  typeDep character in c("AR1", "ARMA", "nonparam") defining which type of dependence to use
-#' @param  pAR numerical, only use if typeDep = "ARMA", the parameters p for the ARMA(p, q) process
-#' @param qMA numerical, only use if typeDep = "ARMA", the parameters p for the ARMA(p, q) process
+#' @param  pAR numerical, only use if typeDep = "ARMA", the parameter p for the ARMA(p, q) process
+#' @param  qMA numerical, only use if typeDep = "ARMA", the parameter q for the ARMA(p, q) process
 #' @return It returns the estimation of the inverse of the square root of the covariance matrix of each row of the residuals matrix.
 #' @examples
 #' data(copals_camera)

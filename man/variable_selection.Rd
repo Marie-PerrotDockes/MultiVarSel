@@ -3,8 +3,8 @@
 \name{variable_selection}
 \alias{variable_selection}
 \title{This function allows the user to select the most relevant variables thanks to
- the estimation of their selection frequencies obtained by the stability
-  selection approach.}
+the estimation of their selection frequencies obtained by the stability
+selection approach.}
 \usage{
 variable_selection(X, group = NULL, Y, nb_replis = 1000, nb.cores = 3,
   typeDep = "AR1", pAR = 1, qMA = 0, parallel = FALSE)
@@ -25,20 +25,22 @@ variable_selection(X, group = NULL, Y, nb_replis = 1000, nb.cores = 3,
 \item{pAR}{numerical, only use if typeDep = "ARMA", the parameters p for the ARMA(p, q) process}
 
 \item{qMA}{numerical, only use if typeDep = "ARMA", the parameters q for the ARMA(p, q) process}
+
+\item{parallel}{logical, if TRUE then a parallelized version of the code is used}
 }
 \value{
 A data frame containing the selection frequencies of the different variables obtained
- by the stability selection, the corresponding level in the design matrix and the associated
- column of the observations matrix.
+by the stability selection, the corresponding level in the design matrix and the associated
+column of the observations matrix.
 }
 \description{
 This function allows the user to select the most relevant variables thanks to
- the estimation of their selection frequencies obtained by the stability
-  selection approach.
+the estimation of their selection frequencies obtained by the stability
+selection approach.
 }
 \examples{
 data("copals_camera")
 Y <- scale(Y[,1:50])
 Frequencies <- variable_selection(Y = Y, group = group,
- nb_repli = 10, typeDep = 'AR1', pAR = 1, qMA = 0, nb.cores = 1)
+ nb_repli = 10, typeDep = 'AR1', pAR = 1, qMA = 0, nb.cores = 1, parallel = FALSE)
 }

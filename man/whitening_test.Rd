@@ -10,8 +10,8 @@ whitening_test(residuals)
 \item{residuals}{the residuals matrix obtained by fitting a linear model to each column of the response matrix as if they were independent}
 }
 \value{
-the p-value of a whithening test. If the p-value is small (generally smaller than 0.05)
- it means that the hypothesis that each row of the  residuals matrix is a white noise is rejected.
+the p-value of a whitening test. If the p-value is small (generally smaller than 0.05)
+it means that the hypothesis that each row of the  residuals matrix is a white noise, is rejected.
 }
 \description{
 This function provides the p-value of an adaptation of the Portmanteau statistic to test if there is some dependence in the rows of the residuals matrix given as an argument of the function.
