@@ -96,6 +96,7 @@ square_root_inv_hat_Sigma <- whitening(E_hat, "AR1", pAR = 1, qMA = 0)
 ```
 
 In order to whiten the data (remove the dependence), we transform the data as follows:
+
 \begin{equation}\label{eq:model_whitened}
 \boldsymbol{Y}\widehat{\boldsymbol{\Sigma}}_q^{-1/2}  
     =\boldsymbol{X}\boldsymbol{B}\widehat{\boldsymbol{\Sigma}}_q^{-1/2} + \boldsymbol{E}\widehat{\boldsymbol{\Sigma}}_q^{-1/2}.
