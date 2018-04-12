@@ -130,7 +130,7 @@ p
 
 If we take a threshold of 0.95, meaning that we keep as non null values only the ones that are considered as non null in more than 95% of the times we have a True Positive Rate equal to 1 and a False Positive Rate equal to 0.
 
-An exemple in metabolomics
+An example in metabolomics
 ==========================
 
 In this section we study a LC-MS (Liquid Chromatography-Mass Spectrometry) data set made of African copals samples. The samples correspond to ethanolic extracts of copals produced by trees belonging to two genera Copaifera (C) and Trachylobium (T) with a second level of classification coming from the geographical provenance of the Copaifera samples (West (W) or East (E) Africa). Since all the Trachylobium samples come from East Africa, we can use the modeling proposed in where *X* is a one-way ANOVA design matrix with 3 levels. Our goal is to identify the most important features (the *m*/*z* values) characterizing the different levels. In order to speed up the computation time, we decided to only study the 200 first columns of the responses matrix.
