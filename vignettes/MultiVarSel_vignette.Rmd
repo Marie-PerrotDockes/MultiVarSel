@@ -153,7 +153,7 @@ p
 
 If we take a threshold of 0.95, meaning that we keep as non null values only the ones that are considered as non null in more than 95% of the times we have a True Positive Rate equal to `r round(sum(Frequencies$Frequencies > 0.95 & as.numeric(B) !=0) / sum(as.numeric(B)!=0))` and a False Positive Rate equal to `r  round(sum(Frequencies$Frequencies > 0.95 & as.numeric(B) ==0) / sum(as.numeric(B)==0))`.
 
-# An exemple in metabolomics 
+# An example in metabolomics 
 
 In this section we study a LC-MS (Liquid
 Chromatography-Mass Spectrometry) data set made of African copals
