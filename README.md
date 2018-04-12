@@ -89,6 +89,7 @@ The idea is then to use the Lasso criterion introduced by Tibshirani in 1996, an
 𝒴 = 𝒳ℬ + ℰ,
  where 𝒴, ℬ and ℰ are vectors and 𝒳 is a matrix, the Lasso estimator of ℬ is defined by
 In order to be able to use the Lasso criterion we will apply the *v**e**c* operator to
+
 Variable selection
 ------------------
 
