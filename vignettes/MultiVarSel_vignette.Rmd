@@ -164,12 +164,20 @@ of the Copaifera samples (West (W) or East (E) Africa). Since all the
 Trachylobium samples come from East Africa, we can use the modeling
 proposed in \eqref{eq:model} where $X$ is a one-way ANOVA design matrix with 3 levels.
 Our goal is to identify the most important features (the $m/z$ values) characterizing the different
-levels.
+levels. In order to speed up the computation time, we decided to only study the 200 first columns of the responses matrix.
 
 ```{r}
 data("copals_camera")
+Y <- scale(Y[,1:200]) 
+```
+
+In order to analyze the whole responses matrix the last command line has to be replaced by
+
+```{r,eval = FALSE}
 Y <- scale(Y) 
 ```
+
+
 
 We build the design matrix as follows
 
@@ -202,7 +210,7 @@ From this result, we observe that the non parametric modelling is the only one w
 In this application, the design matrix $X$ is the design matrix of a one-way ANOVA.
 In that scenario we recommend to use the argument \texttt{group =} "your qualitative variable" in the \texttt{variable\_selection} function. This argument will ensure that in the cross-validation the different fold are homogeneously distributed among the levels of the qualitative variable.
 
-```{r}
+```{r,warning = FALSE}
 Frequencies <- 
   variable_selection(
     Y = Y, 
@@ -214,7 +222,7 @@ Frequencies <-
   )
 ```
 
-The following plot displays the frequencies at which each coefficient of $B$ is considered as being non null which corresponds to the features ($m/z$ values) characterizing the different levels.
+The following plot displays the selected coefficients in $B$ that is the selected features ($m/z$ values) characterizing the different levels when the threshold is equal to 0.999.
 
 ```{r,warning = FALSE}
 Frequencies$Names_of_Y <- as.numeric(gsub('X','',Frequencies$Names_of_Y))
@@ -231,4 +239,3 @@ p
 ```{r, echo = FALSE}
  sessionInfo()
 ```
-

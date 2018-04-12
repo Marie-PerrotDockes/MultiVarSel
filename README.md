@@ -74,9 +74,9 @@ whitening_choice(E_hat, c("AR1", "ARMA", "nonparam"), pAR = 1, qMA = 1)
 ```
 
     ##          Pvalue    Decision
-    ## AR1       0.457 WHITE NOISE
-    ## ARMA 1 1  0.474 WHITE NOISE
-    ## nonparam  0.947 WHITE NOISE
+    ## AR1       0.769 WHITE NOISE
+    ## ARMA 1 1  0.773 WHITE NOISE
+    ## nonparam  0.992 WHITE NOISE
 
 We then select the simplest model that allows us to remove the dependence in the data, in that case the AR(1) modelling. We compute the square root of the inverse of the estimator of the covariance matrix of each row of the residuals matrix using the AR(1) modelling as follows:
 
@@ -89,7 +89,6 @@ The idea is then to use the Lasso criterion introduced by Tibshirani in 1996, an
 𝒴 = 𝒳ℬ + ℰ,
  where 𝒴, ℬ and ℰ are vectors and 𝒳 is a matrix, the Lasso estimator of ℬ is defined by
 In order to be able to use the Lasso criterion we will apply the *v**e**c* operator to
-
 Variable selection
 ------------------
 
@@ -133,10 +132,16 @@ If we take a threshold of 0.95, meaning that we keep as non null values only the
 An exemple in metabolomics
 ==========================
 
-In this section we study a LC-MS (Liquid Chromatography-Mass Spectrometry) data set made of African copals samples. The samples correspond to ethanolic extracts of copals produced by trees belonging to two genera Copaifera (C) and Trachylobium (T) with a second level of classification coming from the geographical provenance of the Copaifera samples (West (W) or East (E) Africa). Since all the Trachylobium samples come from East Africa, we can use the modeling proposed in where *X* is a one-way ANOVA design matrix with 3 levels. Our goal is to identify the most important features (the *m*/*z* values) characterizing the different levels.
+In this section we study a LC-MS (Liquid Chromatography-Mass Spectrometry) data set made of African copals samples. The samples correspond to ethanolic extracts of copals produced by trees belonging to two genera Copaifera (C) and Trachylobium (T) with a second level of classification coming from the geographical provenance of the Copaifera samples (West (W) or East (E) Africa). Since all the Trachylobium samples come from East Africa, we can use the modeling proposed in where *X* is a one-way ANOVA design matrix with 3 levels. Our goal is to identify the most important features (the *m*/*z* values) characterizing the different levels. In order to speed up the computation time, we decided to only study the 200 first columns of the responses matrix.
 
 ``` r
 data("copals_camera")
+Y <- scale(Y[,1:200]) 
+```
+
+In order to analyze the whole responses matrix the last command line has to be replaced by
+
+``` r
 Y <- scale(Y) 
 ```
 
@@ -158,7 +163,7 @@ Then we test if the columns of the residuals are independent using the Portmante
 whitening_test(E_hat)
 ```
 
-    ## [1] 0
+    ## [1] 5.676735e-229
 
 The *p*-value is smaller than 0.05 and thus the hypothesis that each row of *E* is a white noise is rejected. We try our different covariance modellings for the residuals and see if one manages to remove the dependence among the columns of the residuals matrix by using a Portmanteau test.
 
@@ -168,8 +173,8 @@ whitening_choice(E_hat, c("AR1", "nonparam", "ARMA"), pAR = 1, qMA = 1)
 
     ##          Pvalue       Decision
     ## AR1           0 NO WHITE NOISE
-    ## nonparam  0.664    WHITE NOISE
-    ## ARMA 1 1      0 NO WHITE NOISE
+    ## nonparam  0.992    WHITE NOISE
+    ## ARMA 1 1  0.653    WHITE NOISE
 
 From this result, we observe that the non parametric modelling is the only one which removes the dependence.
 
@@ -187,7 +192,7 @@ Frequencies <-
   )
 ```
 
-The following plot displays the frequencies at which each coefficient of *B* is considered as being non null which corresponds to the features (*m*/*z* values) characterizing the different levels.
+The following plot displays the selected coefficients in *B* that is the selected features (*m*/*z* values) characterizing the different levels when the threshold is equal to 0.999.
 
 ``` r
 Frequencies$Names_of_Y <- as.numeric(gsub('X','',Frequencies$Names_of_Y))
@@ -199,7 +204,7 @@ p<-ggplot(data=Frequencies[Frequencies$Frequencies>=0.999,],
 p
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-17-1.png)
+![](README_files/figure-markdown_github/unnamed-chunk-18-1.png)
 
 Session Info
 ============
