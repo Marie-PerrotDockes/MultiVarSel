@@ -13,7 +13,6 @@ RoxygenNote: 6.0.1
 Depends: 
    glmnet,
    Matrix (>= 1.2-11),
-   parallel,
-   tidyverse
+   parallel
 Suggests: R.rsp
 VignetteBuilder: R.rsp   
