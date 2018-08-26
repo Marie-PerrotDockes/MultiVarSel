@@ -4,7 +4,6 @@
 #' @importFrom stats lm ARMAacf ARMAtoMA acf arima model.matrix pchisq
 #' @import glmnet
 #' @import parallel
-#' @import tidyverse
 #' @import Matrix
 #' @param  X a matrix of covariables
 #' @param  Y a response matrix
